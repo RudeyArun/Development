@@ -1,0 +1,107 @@
+<mvc:View
+	controllerName="au.com.bournedigital.developertest.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar"
+    xmlns:layout="sap.ui.layout">
+
+	<semantic:SemanticPage
+		id="detailPage"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+            <layout:HorizontalLayout allowWrapping="false">
+                <Title text="{Employee/FirstName} {Employee/LastName}" />
+                <ObjectAttribute class="sapUiSmallMarginBegin" title="{i18n>OrderId}" text="{OrderID}"/>
+            </layout:HorizontalLayout>
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+            <layout:HorizontalLayout allowWrapping="false">
+                <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                    <ObjectAttribute title="{i18n>ContactName}" text="{Customer/ContactName}"/>
+                    <ObjectAttribute title="{i18n>ContactTitle}" text="{Customer/ContactTitle}"/>
+                    <ObjectAttribute title="{i18n>Phone}" text="{Customer/Phone}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                    <ObjectAttribute title="{i18n>Address}" text="{Customer/Address}"/>
+                    <ObjectAttribute title="{i18n>PostalCode} / {i18n>City}" text="{Customer/PostalCode} / {Customer/City}"/>
+                    <ObjectAttribute title="{i18n>Country}" text="{Customer/Country}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label  text="{i18n>TotalValue}"/>
+                    <ObjectStatus class="sapMObjectStatusSmall" text="{path:'Order_Details/',formatter:'.formatter.valueFormat'}" state="None"/>
+                </layout:VerticalLayout>
+            </layout:HorizontalLayout>
+		</semantic:headerContent>
+
+        <semantic:content>
+			<Table
+                headerText="ORDER ITEMS"
+				id="orderTable"
+				width="auto"
+				items="{
+					path: 'Order_Details',
+					sorter: {
+						path: 'OrderID',
+						descending: false
+					}
+				}"
+				noDataText="{i18n>tableNoDataText}"
+				busyIndicatorDelay="0"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+
+				<headerToolbar>
+					<Toolbar>
+						<Title id="orderTableHeader" text="ORDER ITEMS"/>
+						<ToolbarSpacer />
+					</Toolbar>
+				</headerToolbar>
+
+				<columns>
+					<Column>
+						<Text text="Product ID"/>
+					</Column>
+					<Column>
+						<Text text="Unit Price"/>
+					</Column>
+					<Column>
+						<Text text="Quantity"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="Discount"/>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{ProductID}" />
+							<Text text="{UnitPrice}" />
+							<Text text="{Quantity}" />
+							<Text text="{Discount}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id ="shareTile" title="{objectView>/saveAsTileTitle}" />
+		</semantic:saveAsTileAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>

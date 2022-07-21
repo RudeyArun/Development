@@ -1,0 +1,13 @@
+#
+#Mon Jun 06 11:45:33 UTC 2022
+Type=HTTP
+TrustAll=true
+sap-platform=cf
+HTML5.DynamicDestination=true
+Authentication=NoAuthentication
+WebIDEUsage=odata_gen
+Name=Northwind
+WebIDEEnabled=true
+ProxyType=Internet
+URL=https\://services.odata.org
+WebIDESystem=Northwind
